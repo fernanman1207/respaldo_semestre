@@ -13,3 +13,8 @@ npm install swiper@latest
 
 
 ionic generate page pages/nombrePagina
+
+para base de datos
+npm install cordova-sqlite-storage
+npm install @awesome-cordova-plugins/sqlite
+ionic cap sync
