@@ -1,22 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Compra } from './compra';
 
-export class Compra {
-  id_compra!: number;
-  fecha_compra!: Date;
-  fecha_despacho!: Date;
-  fecha_entrega!: Date;
-  estado!: string;
-  costo_despacho!: number;
-  total!: number;
-  carrito!: ProductoEnCarrito[];
-}
 
-export class ProductoEnCarrito {
-  id_producto!: number;
-  nombre_producto!: string;
-  cantidad!: number;
-  precio_unitario!: number;
-}
+
+
 
 @Injectable({
   providedIn: 'root',

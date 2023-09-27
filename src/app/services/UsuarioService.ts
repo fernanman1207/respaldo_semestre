@@ -1,17 +1,8 @@
 // Importa las dependencias necesarias para la base de datos SQLite en Ionic
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { Usuario } from './usuario';
 
-export class Usuario {
-  id_usuario!: number;
-  rut!: string;
-  dvrut!: string;
-  nombre!: string;
-  apellido!: string;
-  telefono!: string;
-  correo!: string;
-  clave!: string;
-  respuesta!: string;
-}
+
 
 export class UsuarioService {
   private db: SQLiteObject;
