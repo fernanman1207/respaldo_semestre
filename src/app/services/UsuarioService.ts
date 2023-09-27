@@ -50,7 +50,7 @@ export class UsuarioService {
 
   // Función para obtener todos los usuarios
   obtenerUsuarios(): Promise<Usuario[]> {
-    return this.db.executeSql('SELECT * FROM usuarios', []).then((data) => {
+    return this.db.executeSql('SELECT * FROM usuarios', []).then((data: { rows: { length: number; item: (arg0: number) => any; }; }) => {
       const usuarios: Usuario[] = [];
       for (let i = 0; i < data.rows.length; i++) {
         const item = data.rows.item(i);
