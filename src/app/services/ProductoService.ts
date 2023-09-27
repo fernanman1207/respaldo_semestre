@@ -1,5 +1,4 @@
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
-
   import { Producto } from './producto';
 
   import { Injectable } from '@angular/core';
