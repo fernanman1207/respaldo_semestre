@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Pregunta } from './pregexport';
 
 @Injectable({
   providedIn: 'root',

@@ -1,11 +1,11 @@
 // Importa las dependencias necesarias para la base de datos SQLite en Ionic
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Usuario } from './usuario';
 
 
 
 export class UsuarioService {
-  private db: SQLiteObject;
+  private db!: SQLiteObject;
 
   constructor(private sqlite: SQLite) {
     this.initDatabase();

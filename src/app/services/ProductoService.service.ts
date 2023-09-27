@@ -1,4 +1,4 @@
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
   import { Producto } from './producto';
 
   import { Injectable } from '@angular/core';
