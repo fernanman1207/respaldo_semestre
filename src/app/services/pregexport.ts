@@ -6,6 +6,6 @@ export class Pregunta {
   public set id_preg(value: number | undefined) {
     this._id_preg = value;
   }
-    pregunta!: string;
+    pregunta_secreta!: string;
   }
   

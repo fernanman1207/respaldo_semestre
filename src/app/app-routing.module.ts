@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RegisterPage } from './pages/register/register.page'; // Asegúrate de importar la ubicación correcta
 
 const routes: Routes = [
   {
@@ -39,8 +40,8 @@ const routes: Routes = [
     loadChildren: () => import('./adm/listar-us/listar-us.module').then( m => m.ListarUsPageModule)
   },
   {
-    path: 'register',
-    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+    path: 'registro',
+    component: RegisterPage,
   },
   {
     path: 'fgpssw',

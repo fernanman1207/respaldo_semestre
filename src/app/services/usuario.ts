@@ -7,5 +7,7 @@ export class Usuario {
     telefono!: string;
     correo!: string;
     clave!: string;
-    respuesta!: string;
+    pregunta_secreta!: string;
+    respuesta_secreta!: string;
+
 }
