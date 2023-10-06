@@ -54,7 +54,7 @@ export class LoginPage implements OnInit {
     }
 
     function newFunction_1(usuario: (id: number) => Promise<any>) {
-      return usuario();
+      return usuario(1);
     }
   }
 }
