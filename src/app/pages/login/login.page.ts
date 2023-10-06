@@ -23,7 +23,7 @@ export class LoginPage {
       .then((usuario: any): void => {
         if (usuario) {
           // Las credenciales son válidas, redirige al usuario a otra página
-          this.router.navigate(['/inicio']); // Reemplaza '/inicio' con la ruta a la página que desees mostrar después de iniciar sesión
+          this.router.navigate(['/tabs/tabs.page.html']); // Reemplaza '/inicio' con la ruta a la página que desees mostrar después de iniciar sesión
         } else {
           // Las credenciales son inválidas, muestra un mensaje de error o realiza alguna acción adecuada
           console.log('Credenciales inválidas');
