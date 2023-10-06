@@ -13,7 +13,23 @@ export class RegisterPage {
   isSubmitted = false;
 
   validation_messages = {
-    // Define tus mensajes de validación aquí...
+    nombre: [
+      { type: 'required', message: 'El nombre es obligatorio' }
+    ],
+    correo: [
+      { type: 'required', message: 'El correo es obligatorio' },
+      { type: 'email', message: 'Por favor, ingresa un correo válido' }
+    ],
+    clave: [
+      { type: 'required', message: 'La contraseña es obligatoria' },
+      { type: 'minlength', message: 'La contraseña debe tener al menos 6 caracteres' }
+    ],
+    preguntaSecreta: [
+      { type: 'required', message: 'La pregunta secreta es obligatoria' }
+    ],
+    respuestaSecreta: [
+      { type: 'required', message: 'La respuesta secreta es obligatoria' }
+    ]
   };
 
   constructor(
