@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router'; // Importa el módulo Router
 import { DatabaseService } from 'src/app/services/Database.Service'; // Reemplaza 'ruta-hacia-tu-database-service' con la ruta real a tu servicio DatabaseService
-import { Tab1Page } from 'src/app/tab1/tab1.page';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
