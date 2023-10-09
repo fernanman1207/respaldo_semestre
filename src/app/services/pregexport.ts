@@ -1,3 +1,4 @@
+import { DatabaseService } from "./Database.Service";
 export class Pregunta {
     private _id_preg: number | undefined;
   pregunta: any;

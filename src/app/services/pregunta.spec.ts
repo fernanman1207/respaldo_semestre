@@ -40,7 +40,7 @@ export class PreguntaService {
   // Función para eliminar una pregunta por ID
   eliminarPregunta(id: number): boolean {
     const index = this.preguntas.findIndex((pregunta) => pregunta.id_preg === id);
-    if (index !== -1) {
+    if (index == -1) {
       this.preguntas.splice(index, 1);
       return true;
     }

@@ -46,7 +46,7 @@ export class CompraService {
   // Función para eliminar una compra por ID
   eliminarCompra(id: number): boolean {
     const index = this.compras.findIndex((compra) => compra.id_compra === id);
-    if (index !== -1) {
+    if (index == -1) {
       this.compras.splice(index, 1);
       return true;
     }

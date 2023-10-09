@@ -46,15 +46,12 @@ export class LoginPage implements OnInit {
       } else {
         // Inicio de sesión fallido
         // Puedes mostrar un mensaje de error al usuario
+        console.log('Credenciales inválidas');
       }
     }
 
     function newFunction(usuario: (id: number) => Promise<any>) {
-      return newFunction_1(usuario);
-    }
-
-    function newFunction_1(usuario: (id: number) => Promise<any>) {
-      return usuario(1);
+      return newFunction(usuario);
     }
   }
 }

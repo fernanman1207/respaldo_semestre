@@ -1,3 +1,4 @@
+import { DatabaseService } from "./Database.Service";
 export class Usuario {
     id_usuario!: number;
     rut!: string;

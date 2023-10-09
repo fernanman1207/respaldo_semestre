@@ -46,7 +46,7 @@ export class ProductoService {
   // Función para eliminar un producto por ID
   eliminarProducto(id: number): boolean {
     const index = this.productos.findIndex((producto) => producto.id_prod === id);
-    if (index !== -1) {
+    if (index == -1) {
       this.productos.splice(index, 1);
       return true;
     }

@@ -1,3 +1,4 @@
+
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -16,47 +17,47 @@
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
         <ion-row>
-          <ion-input id="email" type="email" fill="solid" label="Email" labelPlacement="floating" required name="email"
-            formControlName="email"></ion-input>
+          <ion-input id="nombre" type="text" fill="solid" label="Nombre" labelPlacement="floating" required
+            name="nombre" formControlName="nombre"></ion-input>
         </ion-row>
 
         <ion-row class="error-mesage">
-          <small *ngFor="let validation of validation_messages.email">
-            <div class="error" *ngIf="isSubmitted && registerForm.get('email')?.hasError(validation.type)">
+          <small *ngFor="let validation of validation_messages.nombre">
+            <div class="error" *ngIf="isSubmitted && registerForm.get('nombre')?.hasError(validation.type)">
               {{ validation.message }}
             </div>
           </small>
         </ion-row>
 
         <ion-row>
-          <ion-input id="password" type="password" fill="solid" label="Contraseña" labelPlacement="floating" required
-            [clearInput]="true" formControlName="password" name="password" clearOnEdit="false"></ion-input>
+          <ion-input id="correo" type="email" fill="solid" label="Correo Electrónico" labelPlacement="floating"
+            required name="correo" formControlName="correo"></ion-input>
         </ion-row>
 
         <ion-row class="error-mesage">
-          <small *ngFor="let validation of validation_messages.password">
-          <div class="error" *ngIf="isSubmitted && registerForm.get('password')?.hasError(validation.type)">
-            {{ validation.message }}
-          </div>
-        </small>
-        </ion-row>
-
-        <ion-row>
-          <ion-input id="password_conf" type="password" fill="solid" label="Confirmar contraseña"
-            labelPlacement="floating" required [clearInput]="true" formControlName="password_conf" name="password_conf"
-            clearOnEdit="false"></ion-input>
-        </ion-row>
-
-        <ion-row class="error-mesage">
-          <small *ngFor="let validation of validation_messages.password_conf">
-            <div class="error" *ngIf="isSubmitted && registerForm.get('password_conf')?.hasError(validation.type)">
+          <small *ngFor="let validation of validation_messages.correo">
+            <div class="error" *ngIf="isSubmitted && registerForm.get('correo')?.hasError(validation.type)">
               {{ validation.message }}
             </div>
           </small>
         </ion-row>
 
         <ion-row>
-          <ion-select aria-label="Pregunta secreta" interface="popover" placeholder="Selecciona una pregunta">
+          <ion-input id="clave" type="password" fill="solid" label="Contraseña" labelPlacement="floating" required
+            [clearInput]="true" formControlName="clave" name="clave" clearOnEdit="false"></ion-input>
+        </ion-row>
+
+        <ion-row class="error-mesage">
+          <small *ngFor="let validation of validation_messages.clave">
+            <div class="error" *ngIf="isSubmitted && registerForm.get('clave')?.hasError(validation.type)">
+              {{ validation.message }}
+            </div>
+          </small>
+        </ion-row>
+
+        <ion-row>
+          <ion-select aria-label="Pregunta secreta" interface="popover" placeholder="Selecciona una pregunta"
+            formControlName="preguntaSecreta">
             <ion-select-option value="preg1">¿Como se llamó tu primera mascota?</ion-select-option>
             <ion-select-option value="preg2">¿Como se llama tu primera pareja?</ion-select-option>
             <ion-select-option value="preg3">¿Cual es tu modelo de tanque favorito?</ion-select-option>
@@ -64,15 +65,17 @@
         </ion-row>
 
         <ion-row>
-          <ion-input id="resp_secreta" type="string" fill="solid" label="Respuesta" labelPlacement="floating" required
-            [clearInput]="true" formControlName="resp_secreta" name="resp_secreta"></ion-input>
+          <ion-input id="resp_secreta" type="text" fill="solid" label="Respuesta" labelPlacement="floating" required
+            [clearInput]="true" formControlName="respuestaSecreta" name="respuestaSecreta"></ion-input>
         </ion-row>
 
-        <small *ngFor="let validation of validation_messages.resp_secreta">
-          <div class="error" *ngIf="isSubmitted && registerForm.get('resp_secreta')?.hasError(validation.type)">
-            {{ validation.message }}
-          </div>
-        </small>
+        <ion-row class="error-mesage">
+          <small *ngFor="let validation of validation_messages.respuestaSecreta">
+            <div class="error" *ngIf="isSubmitted && registerForm.get('respuestaSecreta')?.hasError(validation.type)">
+              {{ validation.message }}
+            </div>
+          </small>
+        </ion-row>
 
         <div id="btn_login">
           <ion-row text-align="center">

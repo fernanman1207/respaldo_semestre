@@ -1,3 +1,4 @@
+
 export class Producto {
     id_prod!: number;
     nombre!: string;
