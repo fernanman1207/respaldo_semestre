@@ -1,4 +1,4 @@
-import { DatabaseService } from "./Database.Service";
+
 export class Pregunta {
     private _id_preg: number | undefined;
   pregunta: any;
@@ -8,6 +8,6 @@ export class Pregunta {
   public set id_preg(value: number | undefined) {
     this._id_preg = value;
   }
-    pregunta_secreta!: string;
+    pregunta_secreta: string = '';
   }
   

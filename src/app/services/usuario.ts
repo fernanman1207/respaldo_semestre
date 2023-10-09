@@ -1,14 +1,13 @@
-import { DatabaseService } from "./Database.Service";
-export class Usuario {
-    id_usuario!: number;
-    rut!: string;
-    dvrut!: string;
-    nombre!: string;
-    apellido!: string;
-    telefono!: string;
-    correo!: string;
-    clave!: string;
-    pregunta_secreta!: string;
-    respuesta_secreta!: string;
 
+export class Usuario {
+    id_usuario: number = 0; // Inicializador para id_usuario
+    rut: string = ''; // Inicializador para rut
+    dvrut: string = ''; // Inicializador para dvrut
+    nombre: string = ''; // Inicializador para nombre
+    apellido: string = ''; // Inicializador para apellido
+    telefono: string = ''; // Inicializador para telefono
+    correo: string = ''; // Inicializador para correo
+    clave: string = ''; // Inicializador para clave
+    pregunta_secreta: string = ''; // Inicializador para pregunta_secreta
+    respuesta_secreta: string = ''; // Inicializador para respuesta_secreta
 }
