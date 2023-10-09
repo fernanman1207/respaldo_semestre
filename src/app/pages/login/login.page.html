@@ -3,9 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button icon="close-outline"></ion-back-button>
     </ion-buttons>
-    <ion-title>
-      Inicio de Sesión
-    </ion-title>
+    <ion-title>Iniciar Sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,7 +17,7 @@
   <div id="container">
     <ion-card class="custom-card">
       <ion-card-header>
-        <ion-card-title>Inicio de Sesión</ion-card-title>
+        <ion-card-title>Iniciar Sesión</ion-card-title>
       </ion-card-header>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <ion-card-content>
@@ -27,7 +25,7 @@
             <ion-input id="email" type="email" fill="solid" label="Email" labelPlacement="floating" required
               name="email" formControlName="email"></ion-input>
           </ion-row>
-          <ion-row class="error-mesage">
+          <ion-row class="error-message">
             <small *ngFor="let validation of validation_messages.email">
               <div class="error" *ngIf="isSubmitted && loginForm.get('email')?.hasError(validation.type)">
                 {{ validation.message }}
@@ -39,7 +37,7 @@
             <ion-input id="password" type="password" fill="solid" label="Contraseña" labelPlacement="floating" required
               [clearInput]="true" formControlName="password" name="password" clearOnEdit="false"></ion-input>
           </ion-row>
-          <ion-row class="error-mesage">
+          <ion-row class="error-message">
             <small *ngFor="let validation of validation_messages.password">
               <div class="error" *ngIf="isSubmitted && loginForm.get('password')?.hasError(validation.type)">
                 {{ validation.message }}
