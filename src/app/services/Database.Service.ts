@@ -25,6 +25,7 @@ export class DatabaseService {
         this.db = db;
         this.createTableUsuarios();
         this.createTableProductos();
+        this.createTablePreguntas();
       })
       .catch((error: any) => {
         console.error('Error al abrir la base de datos: ', error);
