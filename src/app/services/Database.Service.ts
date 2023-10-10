@@ -9,6 +9,7 @@ import { Pregunta } from './pregexport';
 })
 export class DatabaseService {
   private db!: SQLiteObject;
+  preguntas: any;
 
   constructor(private sqlite: SQLite) {
     this.initDatabase();
@@ -70,8 +71,20 @@ export class DatabaseService {
       );
   }
 
-  private createTablePregunta() {
-    this.db.executeSql('CREATE TABLE IF NOT EXISTS pregunta ( )')
+  private createTablePreguntas() {
+    this.db
+      .executeSql(
+        `
+      CREATE TABLE IF NOT EXISTS preguntas (
+        id_preg INTEGER PRIMARY KEY AUTOINCREMENT,
+        pregunta TEXT
+      )`,
+        []
+      )
+      .then(() => console.log('Tabla de preguntas creada'))
+      .catch((error: any) =>
+        console.error('Error al crear la tabla de preguntas: ', error)
+      );
   }
 
   // Métodos CRUD para la tabla "usuarios"
@@ -129,7 +142,7 @@ export class DatabaseService {
 
   obtenerProductos() {
     return this.db.executeSql('SELECT * FROM productos', []).then((data) => {
-      const productos = [];
+      const productos: any[] | PromiseLike<any[]> = [];
       for (let i = 0; i < data.rows.length; i++) {
         productos.push(data.rows.item(i));
       }
@@ -158,6 +171,46 @@ export class DatabaseService {
 
   eliminarProducto(id: number) {
     return this.db.executeSql('DELETE FROM productos WHERE id_prod = ?', [id]);
+  }
+
+  //operaciones CRUD Preguntas
+  agregarPregunta(pregunta: Pregunta): Promise<void> {
+    return this.db
+      .executeSql('INSERT INTO preguntas (pregunta) VALUES (?)', [pregunta.pregunta])
+      .then(() => console.log('Pregunta agregada a la base de datos'))
+      .catch((error: any) =>
+        console.error('Error al agregar la pregunta: ', error)
+      );
+  }
+
+  // Función para obtener todas las preguntas
+  obtenerPreguntas(): Pregunta[] {
+    return this.preguntas;
+  }
+
+  obtenerPreguntaPorId(id: number): Pregunta | undefined {
+    return this.preguntas.find((pregunta: { id_preg: number; }) => pregunta.id_preg === id);
+  }
+
+  actualizarPregunta(id: number, preguntaActualizada: Pregunta): Promise<void> {
+    return this.db
+      .executeSql(
+        'UPDATE preguntas SET pregunta = ? WHERE id_preg = ?',
+        [preguntaActualizada.pregunta, id]
+      )
+      .then(() => console.log('Pregunta actualizada en la base de datos'))
+      .catch((error: any) =>
+        console.error('Error al actualizar la pregunta: ', error)
+      );
+  }
+
+  eliminarPregunta(id: number): Promise<void> {
+    return this.db
+      .executeSql('DELETE FROM preguntas WHERE id_preg = ?', [id])
+      .then(() => console.log('Pregunta eliminada de la base de datos'))
+      .catch((error: any) =>
+        console.error('Error al eliminar la pregunta: ', error)
+      );
   }
 
 
