@@ -212,7 +212,8 @@ export class DatabaseService {
         console.error('Error al eliminar la pregunta: ', error)
       );
   }
-
+   
+  //acciones crud compra
 
   
 }
