@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Usuario } from './usuario';
 import { Producto } from './producto';
+import { Pregunta } from './pregexport';
 
 @Injectable({
   providedIn: 'root',
@@ -67,6 +68,10 @@ export class DatabaseService {
       .catch((error: any) =>
         console.error('Error al crear la tabla de productos: ', error)
       );
+  }
+
+  private createTablePregunta() {
+    this.db.executeSql('CREATE TABLE IF NOT EXISTS pregunta ( )')
   }
 
   // Métodos CRUD para la tabla "usuarios"
@@ -154,4 +159,7 @@ export class DatabaseService {
   eliminarProducto(id: number) {
     return this.db.executeSql('DELETE FROM productos WHERE id_prod = ?', [id]);
   }
+
+
+  
 }
