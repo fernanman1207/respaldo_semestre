@@ -3,6 +3,8 @@ import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Usuario } from './usuario';
 import { Producto } from './producto';
 import { Pregunta } from './pregexport';
+import { Compra } from './compra';
+import { ProductoEnCarrito } from './carrito';
 
 @Injectable({
   providedIn: 'root',
