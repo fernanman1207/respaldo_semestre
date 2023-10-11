@@ -5,8 +5,8 @@ import { Usuario } from 'src/app/services/usuario'; // Reemplaza 'ruta-hacia-tu-
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+  templateUrl: '/register.page.html',
+  styleUrls: ['/register.page.scss'],
 })
 export class RegisterPage {
   registerForm: FormGroup;
