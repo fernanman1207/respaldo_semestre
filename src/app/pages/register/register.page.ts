@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DatabaseService } from 'src/app/services/Database.Service'; // Reemplaza 'ruta-hacia-tu-database-service' con la ruta real a tu servicio DatabaseService
-import { Usuario } from 'src/app/services/usuario'; // Reemplaza 'ruta-hacia-tu-modelo-usuario' con la ruta real a tu modelo Usuario
+import { DatabaseService, Usuario } from 'src/app/services/Database.Service'; // Reemplaza 'ruta-hacia-tu-database-service' con la ruta real a tu servicio DatabaseService
+
 
 @Component({
   selector: 'app-register',
