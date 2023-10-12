@@ -44,7 +44,13 @@ export class Compra {
   estado: string = ''; // Inicializador para estado
   costo_despacho: number = 0; // Inicializador para costo_despacho
   total: number = 0; // Inicializador para total
-  carrito: ProductoEnCarrito[] = []; // Inicializador para carrito (un array vacío por defecto)
+  private _carrito: ProductoEnCarrito[] = []; // Inicializador para carrito (un array vacío por defecto)
+  public get carrito(): ProductoEnCarrito[] {
+    return this._carrito;
+  }
+  public set carrito(value: ProductoEnCarrito[]) {
+    this._carrito = value;
+  }
 }
 
 export class ProductoEnCarrito {
@@ -346,6 +352,8 @@ export class DatabaseService {
           estado: row.estado,
           costo_despacho: row.costo_despacho,
           total: row.total,
+          _carrito: [],
+          carrito: []
         });
       }
       return compras;
@@ -425,4 +433,4 @@ obtenerProductosEnCarrito() {
   });
 
   
-}
+}}
