@@ -333,7 +333,7 @@ export class DatabaseService {
       const compras: Compra[] = [];
       for (let i = 0; i < data.rows.length; i++) {
         const row = data.rows.item(i);
-        const compra = new Compra();
+        const compra = this.MetodoCompra();
         compra.id_compra = row.id_compra;
         compra.fecha_compra = new Date(row.fecha_compra);
         compra.fecha_despacho = new Date(row.fecha_despacho);
@@ -351,6 +351,10 @@ export class DatabaseService {
     });
   }
   
+  private MetodoCompra() {
+    return new Compra();
+  }
+
   obtenerCompraPorId(id: number) {
     return this.db
       .executeSql('SELECT * FROM compras WHERE id_compra = ?', [id])
