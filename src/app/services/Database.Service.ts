@@ -38,6 +38,26 @@ export class ProductoEnCarrito {
   precio_unitario: number = 0; // Inicializador para precio_unitario
 }
 
+
+export class Compra {
+  id_compra: number;
+  fecha_compra: Date;
+  fecha_despacho: Date;
+  fecha_entrega: Date;
+  estado: string;
+  costo_despacho: number;
+  total: number;
+  constructor(id_compra: number, fecha_compra: Date, fecha_despacho: Date, fecha_entrega: Date, estado: string, costo_despacho: number, total: number) {
+    this.id_compra = id_compra;
+    this.fecha_compra = fecha_compra;
+    this.fecha_despacho = fecha_despacho;
+    this.fecha_entrega = fecha_entrega;
+    this.estado = estado;
+    this.costo_despacho = costo_despacho;
+    this.total = total;
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -270,8 +290,9 @@ export class DatabaseService {
   }
 
   obtenerPreguntaPorId(id: number): Pregunta | undefined {
-    return this.preguntas.find((pregunta: { id_preg: number; }) => pregunta.id_preg === id);
+    return this.preguntas.find((pregunta: Pregunta) => pregunta.id_preg === id);
   }
+  
 
   actualizarPregunta(id: number, preguntaActualizada: Pregunta): Promise<void> {
     return this.db
@@ -312,21 +333,24 @@ export class DatabaseService {
       const compras: Compra[] = [];
       for (let i = 0; i < data.rows.length; i++) {
         const row = data.rows.item(i);
-        compras.push({
-          id_compra: row.id_compra,
-          fecha_compra: new Date(row.fecha_compra),
-          fecha_despacho: new Date(row.fecha_despacho),
-          fecha_entrega: new Date(row.fecha_entrega),
-          estado: row.estado,
-          costo_despacho: row.costo_despacho,
-          total: row.total,
-          _carrito: [],
-          carrito: []
-        });
+        const compra = new Compra();
+        compra.id_compra = row.id_compra;
+        compra.fecha_compra = new Date(row.fecha_compra);
+        compra.fecha_despacho = new Date(row.fecha_despacho);
+        compra.fecha_entrega = new Date(row.fecha_entrega);
+        compra.estado = row.estado;
+        compra.costo_despacho = row.costo_despacho;
+        compra.total = row.total;
+  
+        // Puedes cargar el array "carrito" aquí si es necesario
+        // Por ejemplo: compra.carrito = obtenerCarritoPorIdCompra(compra.id_compra);
+  
+        compras.push(compra);
       }
       return compras;
     });
   }
+  
   obtenerCompraPorId(id: number) {
     return this.db
       .executeSql('SELECT * FROM compras WHERE id_compra = ?', [id])
