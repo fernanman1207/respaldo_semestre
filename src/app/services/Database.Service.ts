@@ -1,69 +1,16 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
-
-//lista de exports
-export class Usuario {
-  id_usuario: number = 0; // Inicializador para id_usuario
-  rut: string = ''; // Inicializador para rut
-  dvrut: string = ''; // Inicializador para dvrut
-  nombre: string = ''; // Inicializador para nombre
-  apellido: string = ''; // Inicializador para apellido
-  telefono: string = ''; // Inicializador para telefono
-  correo: string = ''; // Inicializador para correo
-  clave: string = ''; // Inicializador para clave
-  pregunta_secreta: string = ''; // Inicializador para pregunta_secreta
-  respuesta_secreta: string = ''; // Inicializador para respuesta_secreta
-}
-
-export class Producto {
-  id_prod: number = 0; // Inicializador para id_prod
-  nombre: string = ''; // Inicializador para nombre
-  descripcion: string = ''; // Inicializador para descripcion
-  precio: number = 0; // Inicializador para precio
-  stock: number = 0; // Inicializador para stock
-  foto: string = ''; // Inicializador para foto (puedes usar una URL o una representación de imagen según tu necesidad)
-}
-
-export class Pregunta {
-  private _id_preg: number | undefined;
-pregunta: any;
-public get id_preg(): number | undefined {
-  return this._id_preg;
-}
-public set id_preg(value: number | undefined) {
-  this._id_preg = value;
-}
-  pregunta_secreta: string = '';
-}
-
-export class Compra {
-  id_compra: number = 0; // Inicializador para id_compra
-  fecha_compra: Date = new Date(); // Inicializador para fecha_compra (se establece en la fecha actual por defecto)
-  fecha_despacho: Date = new Date(); // Inicializador para fecha_despacho (se establece en la fecha actual por defecto)
-  fecha_entrega: Date = new Date(); // Inicializador para fecha_entrega (se establece en la fecha actual por defecto)
-  estado: string = ''; // Inicializador para estado
-  costo_despacho: number = 0; // Inicializador para costo_despacho
-  total: number = 0; // Inicializador para total
-  private _carrito: ProductoEnCarrito[] = []; // Inicializador para carrito (un array vacío por defecto)
-  public get carrito(): ProductoEnCarrito[] {
-    return this._carrito;
-  }
-  public set carrito(value: ProductoEnCarrito[]) {
-    this._carrito = value;
-  }
-}
-
-export class ProductoEnCarrito {
-  id_producto: number = 0; // Inicializador para id_producto
-  nombre_producto: string = ''; // Inicializador para nombre_producto
-  cantidad: number = 0; // Inicializador para cantidad
-  precio_unitario: number = 0; // Inicializador para precio_unitario
-}
-
+import { Usuario } from './usuario';
+import { Producto } from './producto';
+import { Pregunta } from './pregexport';
+import { Compra } from './compra';
+import { ProductoEnCarrito } from './carrito';
 
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class DatabaseService {
   private db!: SQLiteObject;
   preguntas: any;
@@ -83,8 +30,6 @@ export class DatabaseService {
         this.createTableUsuarios();
         this.createTableProductos();
         this.createTablePreguntas();
-        this.createTableCarrito();
-        this.createTableCompra();
       })
       .catch((error: any) => {
         console.error('Error al abrir la base de datos: ', error);
@@ -146,48 +91,6 @@ export class DatabaseService {
         console.error('Error al crear la tabla de preguntas: ', error)
       );
   }
-
-  private createTableCompra() {
-    this.db
-      .executeSql(
-        `
-      CREATE TABLE IF NOT EXISTS compras (
-        id_compra INTEGER PRIMARY KEY AUTOINCREMENT,
-        fecha_compra TEXT,
-        fecha_despacho TEXT,
-        fecha_entrega TEXT,
-        estado TEXT,
-        costo_despacho REAL,
-        total REAL
-      )`,
-        []
-      )
-      .then(() => console.log('Tabla de compras creada'))
-      .catch((error: any) =>
-        console.error('Error al crear la tabla de compras: ', error)
-      );
-  }
-
-  private createTableCarrito() {
-    this.db
-      .executeSql(
-        `
-      CREATE TABLE IF NOT EXISTS carrito (
-        id_carrito INTEGER PRIMARY KEY AUTOINCREMENT,
-        id_producto INTEGER,
-        nombre_producto TEXT,
-        cantidad INTEGER,
-        precio_unitario REAL
-      )`,
-        []
-      )
-      .then(() => console.log('Tabla de carrito creada'))
-      .catch((error: any) =>
-        console.error('Error al crear la tabla de carrito: ', error)
-      );
-  }
-
-  
 
   // Métodos CRUD para la tabla "usuarios"
 
@@ -306,18 +209,8 @@ export class DatabaseService {
       );
   }
 
-  eliminarPregunta(id: number): Promise<void> {
-    return this.db
-      .executeSql('DELETE FROM preguntas WHERE id_preg = ?', [id])
-      .then(() => console.log('Pregunta eliminada de la base de datos'))
-      .catch((error: any) =>
-        console.error('Error al eliminar la pregunta: ', error)
-      );
-  }
-   
-  //acciones crud compra
-
-  agregarCompra(compra: Compra) {
+   //acciones crud compra
+   agregarCompra(compra: Compra) {
     const {
       fecha_compra,
       fecha_despacho,
@@ -338,7 +231,6 @@ export class DatabaseService {
       ]
     );
   }
-
   obtenerCompras() {
     return this.db.executeSql('SELECT * FROM compras', []).then((data) => {
       const compras: Compra[] = [];
@@ -359,7 +251,6 @@ export class DatabaseService {
       return compras;
     });
   }
-
   obtenerCompraPorId(id: number) {
     return this.db
       .executeSql('SELECT * FROM compras WHERE id_compra = ?', [id])
@@ -379,7 +270,6 @@ export class DatabaseService {
         return null;
       });
   }
-
   actualizarCompra(id: number, compra: Compra) {
     const {
       fecha_compra,
@@ -402,13 +292,10 @@ export class DatabaseService {
       ]
     );
   }
-
   eliminarCompra(id: number) {
     return this.db.executeSql('DELETE FROM compras WHERE id_compra = ?', [id]);
   }
-
   // Operaciones CRUD para la tabla "carrito" (ProductoEnCarrito)
-
 agregarProductoAlCarrito(producto: ProductoEnCarrito) {
   const { id_producto, nombre_producto, cantidad, precio_unitario } = producto;
   return this.db.executeSql(
@@ -416,7 +303,6 @@ agregarProductoAlCarrito(producto: ProductoEnCarrito) {
     [id_producto, nombre_producto, cantidad, precio_unitario]
   );
 }
-
 obtenerProductosEnCarrito() {
   return this.db.executeSql('SELECT * FROM carrito', []).then((data) => {
     const productosEnCarrito: ProductoEnCarrito[] = [];
@@ -431,6 +317,5 @@ obtenerProductosEnCarrito() {
     }
     return productosEnCarrito;
   });
-
   
 }}
