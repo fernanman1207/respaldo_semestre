@@ -1,11 +1,42 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
-import { Usuario } from './usuario';
-import { Producto } from './producto';
-import { Pregunta } from './pregunta';
-import { ProductoEnCarrito } from './producto-en-carrito';
-import { Compra } from './compra';
 
+export class Pregunta {
+  private _id_preg: number | undefined;
+  pregunta: any;
+public get id_preg(): number | undefined {
+  return this._id_preg;
+}
+public set id_preg(value: number | undefined) {
+  this._id_preg = value;
+}
+  pregunta_secreta: string='';
+}
+
+export class Usuario {
+  id_usuario: number = 0;
+  nombre: string='';
+  correo: string ='';
+  clave: string = '';
+  respuesta_secreta: string = '';
+  pregunta_secreta: string = '';
+}
+
+export class Producto {
+  id_prod: number = 0; // Inicializador para id_prod
+  nombre: string = ''; // Inicializador para nombre
+  descripcion: string = ''; // Inicializador para descripcion
+  precio: number = 0; // Inicializador para precio
+  stock: number = 0; // Inicializador para stock
+  foto: string = ''; // Inicializador para foto (puedes usar una URL o una representación de imagen según tu necesidad)
+}
+
+export class ProductoEnCarrito {
+  id_producto: number = 0; // Inicializador para id_producto
+  nombre_producto: string = ''; // Inicializador para nombre_producto
+  cantidad: number = 0; // Inicializador para cantidad
+  precio_unitario: number = 0; // Inicializador para precio_unitario
+}
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +44,10 @@ import { Compra } from './compra';
 
 
 export class DatabaseService {
+  [x: string]: any;
   private db!: SQLiteObject;
   preguntas: Pregunta[]=[];
-  compras: Compra[]=[];
+  
 
   constructor(private sqlite: SQLite) {
     this.initDatabase();
@@ -32,6 +64,9 @@ export class DatabaseService {
         this.createTableUsuarios();
         this.createTableProductos();
         this.createTablePreguntas();
+        this.createTableCompra();
+        this.createTableCarrito();
+
       })
       .catch((error: any) => {
         console.error('Error al abrir la base de datos: ', error);
@@ -91,6 +126,45 @@ export class DatabaseService {
       .then(() => console.log('Tabla de preguntas creada'))
       .catch((error: any) =>
         console.error('Error al crear la tabla de preguntas: ', error)
+      );
+  }
+  private createTableCompra() {
+    this.db
+      .executeSql(
+        `
+      CREATE TABLE IF NOT EXISTS compras (
+        id_compra INTEGER PRIMARY KEY AUTOINCREMENT,
+        fecha_compra TEXT,
+        fecha_despacho TEXT,
+        fecha_entrega TEXT,
+        estado TEXT,
+        costo_despacho REAL,
+        total REAL
+      )`,
+        []
+      )
+      .then(() => console.log('Tabla de compras creada'))
+      .catch((error: any) =>
+        console.error('Error al crear la tabla de compras: ', error)
+      );
+  }
+
+  private createTableCarrito() {
+    this.db
+      .executeSql(
+        `
+      CREATE TABLE IF NOT EXISTS carrito (
+        id_carrito INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_producto INTEGER,
+        nombre_producto TEXT,
+        cantidad INTEGER,
+        precio_unitario REAL
+      )`,
+        []
+      )
+      .then(() => console.log('Tabla de carrito creada'))
+      .catch((error: any) =>
+        console.error('Error al crear la tabla de carrito: ', error)
       );
   }
 
@@ -183,7 +257,7 @@ export class DatabaseService {
   //operaciones CRUD Preguntas
   agregarPregunta(pregunta: Pregunta): Promise<void> {
     return this.db
-      .executeSql('INSERT INTO preguntas (pregunta) VALUES (?)', [pregunta.pregunta])
+      .executeSql('INSERT INTO preguntas (pregunta) VALUES (?)', [pregunta])
       .then(() => console.log('Pregunta agregada a la base de datos'))
       .catch((error: any) =>
         console.error('Error al agregar la pregunta: ', error)
