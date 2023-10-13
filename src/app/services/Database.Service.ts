@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Usuario } from './usuario';
 import { Producto } from './producto';
-import { Pregunta } from './pregexport';
+import { Pregunta } from './pregunta';
+import { ProductoEnCarrito } from './producto-en-carrito';
 import { Compra } from './compra';
-import { ProductoEnCarrito } from './carrito';
+
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,8 @@ import { ProductoEnCarrito } from './carrito';
 
 export class DatabaseService {
   private db!: SQLiteObject;
-  preguntas: any;
+  preguntas: Pregunta[]=[];
+  compras: Compra[]=[];
 
   constructor(private sqlite: SQLite) {
     this.initDatabase();
