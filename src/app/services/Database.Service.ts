@@ -333,7 +333,7 @@ export class DatabaseService {
       const compras: Compra[] = [];
       for (let i = 0; i < data.rows.length; i++) {
         const row = data.rows.item(i);
-        const compra = this.MetodoCompra();
+        const compra = data.row.obtenerCarritoPorIdCompra();
         compra.id_compra = row.id_compra;
         compra.fecha_compra = new Date(row.fecha_compra);
         compra.fecha_despacho = new Date(row.fecha_despacho);
@@ -351,9 +351,7 @@ export class DatabaseService {
     });
   }
   
-  private MetodoCompra() {
-    return new Compra();
-  }
+  
 
   obtenerCompraPorId(id: number) {
     return this.db
