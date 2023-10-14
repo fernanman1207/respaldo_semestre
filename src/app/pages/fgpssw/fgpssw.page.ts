@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatabaseService, Usuario } from 'src/app/services/Database.Service';
+
+schemas:[
+  CUSTOM_ELEMENTS_SCHEMA
+]
 
 @Component({
   selector: 'app-fgpssw',
