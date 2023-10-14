@@ -232,6 +232,26 @@ export class DatabaseService {
   eliminarUsuario(id: number) {
     return this.db.executeSql('DELETE FROM usuarios WHERE id_usuario = ?', [id]);
   }
+  
+  obtenerUsuarioPorCredenciales(correo: string, clave: string): Promise<Usuario | null> {
+    return this.db
+      .executeSql('SELECT * FROM usuarios WHERE correo = ? AND clave = ?', [correo, clave])
+      .then((data) => {
+        if (data.rows.length > 0) {
+          const row = data.rows.item(0);
+          return {
+            id_usuario: row.id_usuario,
+            nombre: row.nombre,
+            correo: row.correo,
+            clave: row.clave,
+            pregunta_secreta: row.pregunta_secreta,
+            respuesta_secreta: row.respuesta_secreta,
+          };
+        }
+        return null;
+      });
+  }
+  
 
   // Métodos CRUD para la tabla "productos"
 
