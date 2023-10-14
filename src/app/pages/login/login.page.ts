@@ -1,62 +1,51 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Router } from '@angular/router'; // Importa el módulo Router
-import { DatabaseService, Usuario } from 'src/app/services/Database.Service'; // Reemplaza 'ruta-hacia-tu-database-service' con la ruta real a tu servicio DatabaseService
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DatabaseService } from 'src/app/services/Database.Service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
-schemas:[
-  CUSTOM_ELEMENTS_SCHEMA
-]
 
 @Component({
   selector: 'app-login',
-  templateUrl: '/login.page.html',
-  styleUrls: ['/login.page.scss'],
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  [x: string]: any;
-  loginForm: FormGroup | undefined;
+  loginForm: FormGroup;
   isSubmitted = false;
 
   constructor(
-    private router: Router, // Inyecta el Router para gestionar la navegación
-    private databaseService: DatabaseService, // Inyecta el servicio DatabaseService
+    private router: Router,
+    private databaseService: DatabaseService,
     private formBuilder: FormBuilder,
-    private usuario: Usuario
+    private loginForms: FormGroup
   ) {}
+
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      Correo: ['', [Validators.required, Validators.email]],
-      Clave: ['', Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
   }
 
   get formControls() {
-    return this.loginForm!.controls;
+    return this.loginForm.controls;
   }
 
   async onSubmit() {
     this.isSubmitted = true;
-    if (this.loginForm!.valid) {
+    if (this.loginForm.valid) {
       const email = this.formControls['email'].value;
       const password = this.formControls['password'].value;
 
-      // Aquí deberías llamar a la función de inicio de sesión en tu servicio UsuarioService
-      // Por ejemplo:
-      const usuario = this.databaseService.obtenerUsuarioPorId;
-
-      if (await newFunction(usuario)) {
-        // Inicio de sesión exitoso
-        // Puedes redirigir al usuario a la página de inicio o a la página deseada
-        this.router.navigate(['/home']);
-      } else {
-        // Inicio de sesión fallido
-        // Puedes mostrar un mensaje de error al usuario
-        console.log('Credenciales inválidas');
+      try {
+        const usuario = await this.databaseService.obtenerUsuarioPorCredenciales(email, password);
+        if (usuario) {
+          this.router.navigate(['/home']);
+        } else {
+          console.log('Credenciales inválidas');
+        }
+      } catch (error) {
+        console.error('Error al iniciar sesión:', error);
       }
-    }
-
-    function newFunction(usuario: (id: number) => Promise<any>) {
-      return newFunction(usuario);
     }
   }
 }
