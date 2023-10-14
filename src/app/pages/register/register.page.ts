@@ -56,11 +56,7 @@ export class RegisterPage {
           clave: this.registerForm.value.clave,
           pregunta_secreta: this.registerForm.value.preguntaSecreta,
           respuesta_secreta: this.registerForm.value.respuestaSecreta,
-          id_usuario: 0,
-          rut: '',
-          dvrut: '',
-          apellido: '',
-          telefono: ''
+          id_usuario: 0
         }).then(() => {
         // El usuario se ha registrado con éxito en la base de datos.
         // Puedes redirigir al usuario a una página de inicio de sesión u otra página relevante.
@@ -70,11 +66,7 @@ export class RegisterPage {
             clave: this.registerForm.value.clave,
             pregunta_secreta: this.registerForm.value.preguntaSecreta,
             respuesta_secreta: this.registerForm.value.respuestaSecreta,
-            id_usuario: 0,
-            rut: '',
-            dvrut: '',
-            apellido: '',
-            telefono: ''
+            id_usuario: 0
           });
         // Agrega aquí la lógica de redirección si es necesario.
       });

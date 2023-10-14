@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DatabaseService, Usuario } from 'src/app/services/Database.Service';
 
 @Component({
   selector: 'app-fgpssw',

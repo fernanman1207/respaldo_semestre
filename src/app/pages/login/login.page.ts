@@ -17,11 +17,12 @@ export class LoginPage implements OnInit {
     private router: Router, // Inyecta el Router para gestionar la navegación
     private databaseService: DatabaseService, // Inyecta el servicio DatabaseService
     private formBuilder: FormBuilder,
+    private usuario: Usuario
   ) {}
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      Correo: ['', [Validators.required, Validators.email]],
+      Clave: ['', Validators.required]
     });
   }
 
