@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatabaseService, Usuario } from 'src/app/services/Database.Service'; // Reemplaza 'ruta-hacia-tu-database-service' con la ruta real a tu servicio DatabaseService
 
 
+
 @Component({
   selector: 'app-register',
   templateUrl: '/register.page.html',
@@ -49,6 +50,12 @@ export class RegisterPage {
     this.isSubmitted = true;
 
     if (this.registerForm.valid) {
+      const nuevoUsuario: Usuario = new Usuario(); // Crea una nueva instancia de Usuario
+      nuevoUsuario.nombre = this.registerForm.value.nombre;
+      nuevoUsuario.correo = this.registerForm.value.correo;
+      nuevoUsuario.clave = this.registerForm.value.clave;
+      nuevoUsuario.pregunta_secreta = this.registerForm.value.preguntaSecreta;
+      nuevoUsuario.respuesta_secreta = this.registerForm.value.respuestaSecreta;
 
       this.databaseService.agregarUsuario({
           nombre: this.registerForm.value.nombre,
@@ -69,7 +76,17 @@ export class RegisterPage {
             id_usuario: 0
           });
         // Agrega aquí la lógica de redirección si es necesario.
-      });
+        this.databaseService.agregarUsuario(nuevoUsuario)
+        .then(() => {
+          // El usuario se ha registrado con éxito en la base de datos.
+          console.log('Usuario registrado:', Usuario);
+
+          // Agrega aquí la lógica de redirección si es necesario.
+        })
+        .catch((error) => {
+          // Manejo de errores en caso de que falle la inserción en la base de datos.
+          console.error('Error al registrar el usuario:', error);}
+        ,)});
     }
   }
 }
